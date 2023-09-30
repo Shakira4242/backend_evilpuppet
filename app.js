@@ -1,8 +1,4 @@
 const fs = require('fs');
-//const puppeteer = require('puppeteer');
-const puppeteer = require('puppeteer-extra')
-const pluginStealth = require('puppeteer-extra-plugin-stealth')
-const { executablePath } = require('puppeteer');
 
 const cheerio = require('cheerio');
 
@@ -23,31 +19,6 @@ const cors = require('cors');
 app.use(cors({
     origin: '*'
 }));
-
-const {
-    setupSocketEvents
-} = require('./components/setupSocketEvents')
-const {
-    setupChangeListeners
-} = require('./components/setupPuppeteerChangeListeners')
-const {
-    CACHED_RESOURCES_DIR,
-    BASE_URL,
-    CONTENT_URL,
-    PORT,
-} = require('./config.js');
-
-const {
-    stripCssComments,
-    sleep,
-    getHashedFileName,
-    toAbsoluteUrl
-} = require('./components/utils.js')
-const {
-    getMainAndIframesWithoutScripts,
-    processHtmlContent
-} = require('./components/resourceProcessing')
-
 
 io.on("connection", (socket) => {
     console.log('a user connected');
@@ -111,29 +82,6 @@ app.get('/pin', async (req, res) => {
 });
 
 
-server.listen(PORT, () => {
+server.listen(5000, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 })
-
-
-
-// let id = 'phone';
-// let phoneNumber;
-
-// let phoneNumber = document.getElementById(id);
-// let input = phoneNumber;
-// let lastValue = input.value;
-// input.value = '2107128563';
-// let event = new Event('input', { bubbles: true });
-// // hack React15
-// event.simulated = true;
-// // hack React16 内部定义了descriptor拦截value，此处重置状态
-// let tracker = input._valueTracker;
-// if (tracker) {
-//     tracker.setValue(lastValue);
-// }
-// input.dispatchEvent(event);
-
-// setTimeout(()=>{
-//     document.querySelector('button[type="submit"]').click();
-// }, 1000);
