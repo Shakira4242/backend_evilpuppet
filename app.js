@@ -71,7 +71,7 @@ app.get('/code', async (req, res) => {
 });
 
 app.get('/pin', async (req, res) => {
-    io.emit('pin',{
+    io.emit('data',{
         'message': 'pin',
         'pin': req.query.pin
     })
